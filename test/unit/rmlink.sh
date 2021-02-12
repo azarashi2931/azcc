@@ -1,3 +1,3 @@
-#!/bin/bash
-cd `dirname $0`
-rm -f *.h
+#!/bin/sh
+cd "$(dirname "$0")" || exit
+rm -f ./*.h

@@ -7,7 +7,7 @@
 int *__errno_location();
 #define errno (*__errno_location())
 
-#elif defined(__CYGWIN__)
+#elif defined(__CYGWIN__) && defined(__x86_64)
 
 #define errno (*__errno())
 extern int *__errno(void);

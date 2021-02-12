@@ -16,7 +16,7 @@ assert() {
     fi
 }
 
-cd `dirname $0`
+cd "$(dirname "$0")" || exit
 assert 0 "test-aa.c"
 assert 42 "test-ab.c"
 assert 21 "test-ac.c"

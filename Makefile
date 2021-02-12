@@ -3,7 +3,7 @@
 CC:=gcc
 AS:=as
 
-CFLAGS:=-std=c11 -g -Wall -Wextra
+CFLAGS:=-std=c11 -g -Wall -Wextra -pedantic-errors
 LDFLAGS:=
 
 SRCS=$(wildcard src/*.c)
@@ -185,12 +185,7 @@ test-shell-scripts3: $(GEN3_BIN) $(TEST_SHELL_SCRIPTS)
 
 log/diff-gen2-gen3-%.log: $(GEN2_BIN) $(GEN3_BIN)
 	@mkdir -p log
-	ECHO='echo -e'
-	case `$$ECHO` in
-		\-e)
-			ECHO='echo'
-	esac
-	{ diff bin/gen2/$*.s bin/gen3/$*.s > $@ && $$ECHO "\033[32mPASS\033[m $@";} || { $$ECHO "\033[31mFAIL\033[m $@ For more information, see $@";}
+	{ diff bin/gen2/$*.s bin/gen3/$*.s > $@ && printf "\033[32mPASS\033[m $@\n";} || { printf "\033[31mFAIL\033[m $@ For more information, see $@\n";}
 
 test-gen2-gen3-diff: $(GEN2_GEN3_DIFF)
 

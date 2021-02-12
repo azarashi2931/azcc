@@ -4,7 +4,7 @@
 # 引数付きのテストコマンドに対応している
 
 ECHO='echo -e'
-case `$ECHO` in
+case $($ECHO) in
     -e)
         ECHO='echo'
 esac
@@ -12,11 +12,13 @@ esac
 res=0
 for i in "$@"
 do
-    head=`echo $i | cut -d' ' -f1`
-    if [ ! -d $head ]
+    head=$(echo "$i" | cut -d' ' -f1)
+    if [ ! -d "$head" ]
     then
-		./$i > ./$head.log
-		if [ $? -eq 0 ]
+        # $iがダブルクオーテーションで囲まれていないのは意図的なもの
+        # $iは引数付きのテストコマンドである可能性があるので
+        # それを実行するためにこうしている
+		if ./$i > ./"$head".log
         then
 			$ECHO "\033[32mPASS\033[m $head"
         else

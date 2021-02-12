@@ -8,11 +8,11 @@ if [ $# -lt 1 ]; then
 fi
 
 
-CC=`which $1`
-CC=`readlink -f $CC`
+CC=$(command -v "$1")
+CC=$(readlink -f "$CC")
 
-LDFLAGS=$2
+LDFLAGS="$2"
 
-cd `dirname $0`
+cd "$(dirname "$0")" || exit
 make clean
 make test "AZCC=$CC" "LDFLAGS=$LDFLAGS" -j32
